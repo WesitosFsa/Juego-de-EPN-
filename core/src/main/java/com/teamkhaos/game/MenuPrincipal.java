@@ -27,7 +27,7 @@ public class MenuPrincipal extends Screens{
             bt1.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    // MenuPrincipal.this.game.setScreen();
+                    game.setScreen(new PantallaJuego(game));
                 }
             });
             // Agregar al menu el boton bt1

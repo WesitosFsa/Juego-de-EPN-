@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import java.util.HashMap;
 
 import java.awt.Menu;
 //LOGICA DETRAS DE LAS PANTALLAS QUE NOS MUESTRA Y NOS SIRVE PARA REFERENCIAR MAS PANTALLAS COMO BASE
@@ -28,9 +29,11 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     public SpriteBatch spriteBatch;
     public Stage stage;
+    private HashMap<String, Screens> pantallasAdyacentes;
 
     public Screens(Main game){
         this.game= game;
+        pantallasAdyacentes = new HashMap<>();
         // inicializar el stage se usa el strechviewport porque es sencillo
         stage = new Stage(new StretchViewport(Screens.screen_width,Screens.screen_height));
         // inicializo la camara
@@ -49,6 +52,20 @@ public abstract class Screens extends InputAdapter implements Screen {
         spriteBatch = new SpriteBatch();
 
     }
+    public void setPantallaAdyacente(String direccion, Screens pantalla) {
+        pantallasAdyacentes.put(direccion, pantalla);
+    }
+    public void cambiarPantalla(String direccion) {
+        System.out.println("Pantallas adyacentes disponibles: " + pantallasAdyacentes.keySet());
+        if (pantallasAdyacentes.containsKey(direccion)) {
+            System.out.println("Cambiando a la pantalla: " + direccion);
+            game.setScreen(pantallasAdyacentes.get(direccion));
+        } else {
+            System.out.println("No se encontró una pantalla adyacente para la dirección: " + direccion);
+        }
+    }
+
+
 
     //funcion render se llama 60 veces por segundo
     public void render(float delta){
@@ -73,18 +90,37 @@ public abstract class Screens extends InputAdapter implements Screen {
         stage.getViewport().update(width, height,true);
     }
 
+
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK){
-            if (this instanceof MenuPrincipal){
-                Gdx.app.exit();
-            }else{
-                game.setScreen(new MenuPrincipal(game));
-            }
-            //Si se esta en el menu principa salgo de la app
-            //Si estoy en dentro de un tutorial regreso al menu principal
-            //TODO : Implement later
+        switch (keycode) {
+            case Input.Keys.UP:
+                System.out.println("Tecla UP presionada");
+                cambiarPantalla("arriba");
+                break;
+            case Input.Keys.DOWN:
+                System.out.println("Tecla DOWN presionada");
+                cambiarPantalla("abajo");
+                break;
+            case Input.Keys.LEFT:
+                System.out.println("Tecla LEFT presionada");
+                cambiarPantalla("izquierda");
+                break;
+            case Input.Keys.RIGHT:
+                System.out.println("Tecla RIGHT presionada");
+                cambiarPantalla("derecha");
+                break;
+            case Input.Keys.ESCAPE:
+            case Input.Keys.BACK:
+                System.out.println("Regresando al menú principal");
+                if (this instanceof MenuPrincipal) {
+                    Gdx.app.exit();
+                } else {
+                    game.setScreen(new MenuPrincipal(game));
+                }
+                break;
         }
         return super.keyDown(keycode);
     }
+
 }
