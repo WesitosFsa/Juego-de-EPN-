@@ -29,11 +29,9 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     public SpriteBatch spriteBatch;
     public Stage stage;
-    private HashMap<String, Screens> pantallasAdyacentes;
 
     public Screens(Main game){
         this.game= game;
-        pantallasAdyacentes = new HashMap<>();
         // inicializar el stage se usa el strechviewport porque es sencillo
         stage = new Stage(new StretchViewport(Screens.screen_width,Screens.screen_height));
         // inicializo la camara
@@ -52,21 +50,6 @@ public abstract class Screens extends InputAdapter implements Screen {
         spriteBatch = new SpriteBatch();
 
     }
-    public void setPantallaAdyacente(String direccion, Screens pantalla) {
-        pantallasAdyacentes.put(direccion, pantalla);
-    }
-    public void cambiarPantalla(String direccion) {
-        System.out.println("Pantallas adyacentes disponibles: " + pantallasAdyacentes.keySet());
-        if (pantallasAdyacentes.containsKey(direccion)) {
-            System.out.println("Cambiando a la pantalla: " + direccion);
-            game.setScreen(pantallasAdyacentes.get(direccion));
-        } else {
-            System.out.println("No se encontró una pantalla adyacente para la dirección: " + direccion);
-        }
-    }
-
-
-
     //funcion render se llama 60 veces por segundo
     public void render(float delta){
         // nos va ayudar a actualizar todas las fisicas del juego
@@ -96,19 +79,19 @@ public abstract class Screens extends InputAdapter implements Screen {
         switch (keycode) {
             case Input.Keys.UP:
                 System.out.println("Tecla UP presionada");
-                cambiarPantalla("arriba");
+                game.setScreen(new PantallaArriba(game));
                 break;
             case Input.Keys.DOWN:
                 System.out.println("Tecla DOWN presionada");
-                cambiarPantalla("abajo");
+                game.setScreen(new PantallaAbajo(game));
                 break;
             case Input.Keys.LEFT:
                 System.out.println("Tecla LEFT presionada");
-                cambiarPantalla("izquierda");
+                game.setScreen(new PantallaIzquierda(game));
                 break;
             case Input.Keys.RIGHT:
                 System.out.println("Tecla RIGHT presionada");
-                cambiarPantalla("derecha");
+                game.setScreen(new PantallaDerecha(game));
                 break;
             case Input.Keys.ESCAPE:
             case Input.Keys.BACK:
