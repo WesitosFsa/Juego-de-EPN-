@@ -46,7 +46,7 @@ public class Temporizador {
 
     public void draw(SpriteBatch batch) {
         String currentTime = getCurrentTime();
-        font.draw(batch, "Hora: " + currentTime, 100, 200); // Dibuja el texto en pantalla
+        font.draw(batch, "Hora: " + currentTime, 690, 465); // Dibuja el texto en pantalla
     }
 
     public void dispose() {

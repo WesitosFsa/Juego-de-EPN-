@@ -21,7 +21,7 @@ public class Assets {
     public static void load(){
         font = new BitmapFont();
 
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("android/assets/data/ui.txt"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/ui.txt"));
 
         //Crear los botones
 

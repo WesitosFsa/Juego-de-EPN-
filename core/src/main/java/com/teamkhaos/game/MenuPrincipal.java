@@ -20,7 +20,7 @@ public class MenuPrincipal extends Screens{
         super(game);
 
         // Cargar la imagen de fondo
-        background = new Texture(Gdx.files.internal("android/assets/IMGgame/background_menu.gif"));
+        background = new Texture(Gdx.files.internal("IMGgame/background_menu.png"));
         batch = new SpriteBatch();
         // Crear la tabla para el menu
 
@@ -78,6 +78,7 @@ public class MenuPrincipal extends Screens{
 
     @Override
     public void show() {
+        System.out.println("Showing main menu...");
 
     }
 
