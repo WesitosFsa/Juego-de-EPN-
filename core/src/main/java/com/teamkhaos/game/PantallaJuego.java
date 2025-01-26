@@ -22,7 +22,7 @@ public class PantallaJuego extends Screens {
 
 
     }
-
+//intentar guardar en variable para que no se pierda if pantalla 2 guarde tiepo  en a
 
     @Override
     public void update(float delta) {

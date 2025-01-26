@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Screens implements Screen {
     public static final float screen_width = 800;
     public static final float screen_height = 480;
@@ -23,6 +26,7 @@ public abstract class Screens implements Screen {
     public OrthographicCamera oCamBOX2D;
     public SpriteBatch spriteBatch;
     public Stage stage;
+    private List<ImageButton> buttons;
 
     public Screens(Main game) {
         this.game = game;
@@ -34,6 +38,7 @@ public abstract class Screens implements Screen {
         Gdx.input.setInputProcessor(new InputMultiplexer(stage));
         spriteBatch = new SpriteBatch();
 
+        buttons = new ArrayList<>(); // Inicializamos la lista de botones
         Assets.load(); // Cargar los recursos desde Assets
         createControls(); // Agregar los botones siempre visibles
     }
@@ -62,6 +67,7 @@ public abstract class Screens implements Screen {
         btnRight.setPosition(posX + btnSize * 2, posY + btnSize);
         btnCenter.setPosition(posX + btnSize, posY + btnSize);
 
+        // Listeners para los botones
         btnUp.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -93,11 +99,25 @@ public abstract class Screens implements Screen {
             }
         });
 
+        // Añadir los botones al escenario y a la lista
         stage.addActor(btnUp);
         stage.addActor(btnDown);
         stage.addActor(btnLeft);
         stage.addActor(btnRight);
         stage.addActor(btnCenter);
+
+        buttons.add(btnUp);
+        buttons.add(btnDown);
+        buttons.add(btnLeft);
+        buttons.add(btnRight);
+        buttons.add(btnCenter);
+    }
+
+    // Función para ocultar los botones
+    public void hideButtons(boolean hide) {
+        for (ImageButton button : buttons) {
+            button.setVisible(!hide);
+        }
     }
 
     public void render(float delta) {
