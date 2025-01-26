@@ -1,6 +1,8 @@
 package com.teamkhaos.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,11 +21,22 @@ public class MenuPrincipal extends Screens {
     private float bg1X, bg2X;    // Posiciones de las capas
     private float bg1Speed = 0.1f; // Velocidad de movimiento de la capa 1
     private float bg2Speed = 0.05f; // Velocidad de movimiento de la capa 2
-
+    private Music menuMusic; // Para la música de fondo
+    //private Sound clickSound; // agregar efectos de sonido en los botones si se requiere
 
     public MenuPrincipal(Main game) {
         super(game);
 
+        // Cargar los archivos de audio
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/audio/audio_prueba.mp3"));
+        //clickSound = Gdx.audio.newSound(Gdx.files.internal("audio/click_sound.mp3"));
+
+        // Configurar la música de fondo
+        menuMusic.setLooping(true); // La música de fondo se repetirá en bucle
+        menuMusic.setVolume(0.4f);  // Ajustar el volumen (0.0f a 1.0f)
+
+        // Reproducir música de fondo
+        menuMusic.play();
         // Ocultar los botones de navegación
         hideButtons(true);
 
@@ -44,6 +57,8 @@ public class MenuPrincipal extends Screens {
             bt1.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    // clickSound.play();  // Reproducir el sonido al hacer clic
+                    menuMusic.stop();  // Detener la música cuando se hace clic en el botón
                     game.timer.reset();
                     game.setScreen(new PantallaJuego(game));
                 }
@@ -115,5 +130,8 @@ public class MenuPrincipal extends Screens {
     public void dispose() {
         background1.dispose();  // Liberar memoria de las texturas
         background2.dispose();
+        menuMusic.stop();  // Detener la música
+        menuMusic.dispose();  // Liberar el recurso de la música
+        //clickSound.dispose();  // Liberar el recurso del sonido de clic
     }
 }
