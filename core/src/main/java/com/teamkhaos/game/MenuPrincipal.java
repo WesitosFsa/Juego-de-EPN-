@@ -35,6 +35,7 @@ public class MenuPrincipal extends Screens{
             bt1.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    game.timer.reset();
                     game.setScreen(new PantallaJuego(game));
                 }
             });
