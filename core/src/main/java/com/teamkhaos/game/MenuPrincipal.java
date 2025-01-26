@@ -28,7 +28,7 @@ public class MenuPrincipal extends Screens {
         super(game);
 
         // Cargar los archivos de audio
-        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/audio/audio_prueba.mp3"));
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/audio_prueba.mp3"));
         //clickSound = Gdx.audio.newSound(Gdx.files.internal("audio/click_sound.mp3"));
 
         // Configurar la música de fondo

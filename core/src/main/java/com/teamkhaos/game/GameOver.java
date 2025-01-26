@@ -17,9 +17,15 @@ public class GameOver extends Screens {
 
     @Override
     public void draw(float delta) {
-        batch.begin();
-        batch.draw(gameOverImage, 0, 0, screen_width, screen_height);
-        batch.end();
+        // Configurar la cámara
+        oCamUi.update();
+        spriteBatch.setProjectionMatrix(oCamUi.combined);
+
+        // Dibujar el fondo y el temporizador
+        spriteBatch.begin();
+        spriteBatch.draw(gameOverImage, 0, 0, screen_width, screen_height);
+        game.timer.draw(spriteBatch);  // Dibujar el temporizador global
+        spriteBatch.end();
     }
 
     @Override
