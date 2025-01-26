@@ -10,6 +10,8 @@ public class Temporizador {
     private float duration; // Duración total del juego en segundos
     private BitmapFont font; // Fuente para dibujar el texto del temporizador
     private boolean gameOver; // Indica si el juego ha terminado
+    private float tiempoRestante;
+    private float tiempoTotal;     // Tiempo total para el temporizador
 
     public Temporizador(float durationInMinutes) {
         this.duration = durationInMinutes * 60; // Convertir minutos a segundos
@@ -51,5 +53,14 @@ public class Temporizador {
 
     public void dispose() {
         font.dispose(); // Liberar recursos
+    }
+    // Metodo para reiniciar el temporizador
+    public void reset() {
+        this.tiempoRestante = this.tiempoTotal;  // Restablecer el tiempo al valor inicial
+        this.gameOver = false;  // El juego no está terminado
+    }
+    // Metodo para obtener el tiempo restante (en segundos)
+    public float getTiempoRestante() {
+        return tiempoRestante;
     }
 }

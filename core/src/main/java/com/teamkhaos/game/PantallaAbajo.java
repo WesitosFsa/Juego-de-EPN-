@@ -10,9 +10,11 @@ public class PantallaAbajo extends Screens {
     private BitmapFont font;
     private GlyphLayout layout;
     private Texture background; // Nueva textura para la imagen
-
+    public int Tiempo = 5;
+    public Main game;
     public PantallaAbajo(Main game) {
         super(game);
+        this.game = game;  // Guardamos la instancia de Main para acceder al temporizador
 
         font = new BitmapFont();
         layout = new GlyphLayout();
@@ -27,15 +29,22 @@ public class PantallaAbajo extends Screens {
         // Configurar la cámara
         oCamUi.update();
         spriteBatch.setProjectionMatrix(oCamUi.combined);
+
         // Dibujar el fondo y el temporizador
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, screen_width, screen_height);
+        game.timer.draw(spriteBatch);  // Dibujar el temporizador global
         spriteBatch.end();
     }
 
     @Override
     public void update(float delta) {
-        // No es necesaria lógica adicional aquí
+        game.timer.update(delta);  // Usamos el temporizador global
+
+        // Verificar si el juego ha terminado
+        if (game.timer.isGameOver()) {
+            game.setScreen(new GameOver(game)); // Cambiar a la pantalla de Game Over
+        }
     }
 
     @Override
