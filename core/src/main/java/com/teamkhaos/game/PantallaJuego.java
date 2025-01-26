@@ -1,46 +1,52 @@
+
 package com.teamkhaos.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.teamkhaos.game.utils.Temporizador;
 
 public class PantallaJuego extends Screens {
-
-    private BitmapFont font;
-    private GlyphLayout layout;
-    private Texture image; // Nueva textura para la imagen
+    private Texture background;
+    private SpriteBatch batch;
+    public Temporizador timer;
+    public int Tiempo = 5;
 
     public PantallaJuego(Main game) {
         super(game);
 
-        font = new BitmapFont();
-        layout = new GlyphLayout();
-        layout.setText(font, "CENTRO");
+        // Cargar el fondo de pantalla del juego
+        background = new Texture(Gdx.files.internal("android/assets/IMGgame/boxmapping/centro.png"));
 
-        // Cargar la imagen desde la ruta especificada
-        image = new Texture(Gdx.files.internal("android/assets/IMGgame/boxmapping/centro.png"));
+
+        // Inicializar el temporizador (5 minutos de duración)
+        timer = new Temporizador(1);
+    }
+
+
+    @Override
+    public void update(float delta) {
+        timer.update(delta); // Actualizar el temporizador
+
+        // Verificar si el juego ha terminado
+        if (timer.isGameOver()) {
+            game.setScreen(new GameOver(game)); // Cambiar a la pantalla de Game Over
+        }
     }
 
     @Override
     public void draw(float delta) {
+        // Configurar la cámara
+        oCamUi.update();
+        spriteBatch.setProjectionMatrix(oCamUi.combined);
+
+        // Dibujar el fondo y el temporizador
         spriteBatch.begin();
-
-        // Dibujar el texto en el centro de la pantalla
-        font.draw(spriteBatch, layout, (screen_width - layout.width) / 2, (screen_height + layout.height) / 2);
-
-        // Dibujar la imagen en el centro de la pantalla
-        float imageX = (screen_width - image.getWidth()) / 2;
-        float imageY = (screen_height - image.getHeight()) / 2;
-        spriteBatch.draw(image, imageX, imageY);
-
+        spriteBatch.draw(background, 0, 0, screen_width, screen_height);
+        timer.draw(spriteBatch); // Asegúrate de que timer se dibuje aquí
         spriteBatch.end();
     }
 
-    @Override
-    public void update(float delta) {
-        // No es necesaria lógica adicional aquí
-    }
 
     @Override
     public void show() {
@@ -64,7 +70,8 @@ public class PantallaJuego extends Screens {
 
     @Override
     public void dispose() {
-        font.dispose();
-        image.dispose(); // Liberar la memoria de la textura
+        background.dispose();
+        batch.dispose();
+        timer.dispose();
     }
 }
