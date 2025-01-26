@@ -1,109 +1,118 @@
 package com.teamkhaos.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import java.util.HashMap;
 
-import java.awt.Menu;
-//LOGICA DETRAS DE LAS PANTALLAS QUE NOS MUESTRA Y NOS SIRVE PARA REFERENCIAR MAS PANTALLAS COMO BASE
-
-public abstract class Screens extends InputAdapter implements Screen {
+public abstract class Screens implements Screen {
     public static final float screen_width = 800;
     public static final float screen_height = 480;
-
     public static final float world_height = 4.8f;
     public static final float world_width = 8f;
 
     public Main game;
-
     public OrthographicCamera oCamUi;
     public OrthographicCamera oCamBOX2D;
-
     public SpriteBatch spriteBatch;
     public Stage stage;
 
-    public Screens(Main game){
-        this.game= game;
-        // inicializar el stage se usa el strechviewport porque es sencillo
-        stage = new Stage(new StretchViewport(Screens.screen_width,Screens.screen_height));
-        // inicializo la camara
-        oCamUi = new OrthographicCamera(screen_width,screen_height);
-        //centrar la camara a la mitad
-        oCamUi.position.set(screen_width / 2f,screen_height/2f,0);
-
-        oCamBOX2D= new OrthographicCamera(world_width,world_height);
-        //centrar la camara a la mitad
-        oCamBOX2D.position.set(world_width / 2f,world_height/2f,0);
-        // input adapter captura eventos y eso lo pasamos al stage el input multiplexer  ayuda a capturar estos eventos y tambien el stage captura eventos
-        InputMultiplexer input = new InputMultiplexer(this,stage);
-        //paso el imput e inicializo el spritebatch constructor listo
-        Gdx.input.setInputProcessor(input);
-
+    public Screens(Main game) {
+        this.game = game;
+        stage = new Stage(new StretchViewport(Screens.screen_width, Screens.screen_height));
+        oCamUi = new OrthographicCamera(screen_width, screen_height);
+        oCamUi.position.set(screen_width / 2f, screen_height / 2f, 0);
+        oCamBOX2D = new OrthographicCamera(world_width, world_height);
+        oCamBOX2D.position.set(world_width / 2f, world_height / 2f, 0);
+        Gdx.input.setInputProcessor(new InputMultiplexer(stage));
         spriteBatch = new SpriteBatch();
 
+        Assets.load(); // Cargar los recursos desde Assets
+        createControls(); // Agregar los botones siempre visibles
     }
-    //funcion render se llama 60 veces por segundo
-    public void render(float delta){
-        // nos va ayudar a actualizar todas las fisicas del juego
+
+    private void createControls() {
+        float btnSize = 40f;
+        float margin = 20f;
+        float posX = margin;
+        float posY = margin;
+
+        ImageButton btnUp = Assets.createDirectionalButton(Assets.btnUpTexture);
+        ImageButton btnDown = Assets.createDirectionalButton(Assets.btnDownTexture);
+        ImageButton btnLeft = Assets.createDirectionalButton(Assets.btnLeftTexture);
+        ImageButton btnRight = Assets.createDirectionalButton(Assets.btnRightTexture);
+        ImageButton btnCenter = Assets.createDirectionalButton(Assets.btnCentertexture);
+
+        btnUp.setSize(btnSize, btnSize);
+        btnDown.setSize(btnSize, btnSize);
+        btnLeft.setSize(btnSize, btnSize);
+        btnRight.setSize(btnSize, btnSize);
+        btnCenter.setSize(btnSize, btnSize);
+
+        btnUp.setPosition(posX + btnSize, posY + btnSize * 2);
+        btnDown.setPosition(posX + btnSize, posY);
+        btnLeft.setPosition(posX, posY + btnSize);
+        btnRight.setPosition(posX + btnSize * 2, posY + btnSize);
+        btnCenter.setPosition(posX + btnSize, posY + btnSize);
+
+        btnUp.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new PantallaArriba(game));
+            }
+        });
+        btnDown.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new PantallaAbajo(game));
+            }
+        });
+        btnLeft.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new PantallaIzquierda(game));
+            }
+        });
+        btnRight.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new PantallaDerecha(game));
+            }
+        });
+        btnCenter.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new PantallaJuego(game));
+            }
+        });
+
+        stage.addActor(btnUp);
+        stage.addActor(btnDown);
+        stage.addActor(btnLeft);
+        stage.addActor(btnRight);
+        stage.addActor(btnCenter);
+    }
+
+    public void render(float delta) {
         update(delta);
-        // va actualizar todas la animaciones de los eventos que esten dentro del stage
         stage.act(delta);
-        //luego borrar all lo que este en la pantalla
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         draw(delta);
-
         stage.draw();
     }
 
-    //tiempo
     public abstract void draw(float delta);
     public abstract void update(float delta);
-    // si la pantalla cambia de tamaño
+
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height,true);
+        stage.getViewport().update(width, height, true);
     }
-
-
-    @Override
-    public boolean keyDown(int keycode) {
-        switch (keycode) {
-            case Input.Keys.UP:
-                System.out.println("Tecla UP presionada");
-                game.setScreen(new PantallaArriba(game));
-                break;
-            case Input.Keys.DOWN:
-                System.out.println("Tecla DOWN presionada");
-                game.setScreen(new PantallaAbajo(game));
-                break;
-            case Input.Keys.LEFT:
-                System.out.println("Tecla LEFT presionada");
-                game.setScreen(new PantallaIzquierda(game));
-                break;
-            case Input.Keys.RIGHT:
-                System.out.println("Tecla RIGHT presionada");
-                game.setScreen(new PantallaDerecha(game));
-                break;
-            case Input.Keys.ESCAPE:
-            case Input.Keys.BACK:
-                System.out.println("Regresando al menú principal");
-                if (this instanceof MenuPrincipal) {
-                    Gdx.app.exit();
-                } else {
-                    game.setScreen(new MenuPrincipal(game));
-                }
-                break;
-        }
-        return super.keyDown(keycode);
-    }
-
 }
