@@ -22,7 +22,7 @@ public class PantallaJuego extends Screens {
         // Inicializar el temporizador (5 minutos de duración)
         timer = new Temporizador(1);
     }
-
+//intentar guardar en variable para que no se pierda if pantalla 2 guarde tiepo  en a
 
     @Override
     public void update(float delta) {
