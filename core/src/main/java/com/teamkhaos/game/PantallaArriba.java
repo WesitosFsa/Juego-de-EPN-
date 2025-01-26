@@ -9,7 +9,7 @@ public class PantallaArriba extends Screens {
 
     private BitmapFont font;
     private GlyphLayout layout;
-    private Texture image; // Nueva textura para la imagen
+    private Texture background; // Nueva textura para la imagen
 
     public PantallaArriba(Main game) {
         super(game);
@@ -19,21 +19,18 @@ public class PantallaArriba extends Screens {
         layout.setText(font, "ARRIBA");
 
         // Cargar la imagen desde la ruta especificada
-        image = new Texture(Gdx.files.internal("IMGgame/boxmapping/arriba.png"));
+        background = new Texture(Gdx.files.internal("IMGgame/boxmapping/arriba.png"));
     }
 
     @Override
     public void draw(float delta) {
+        // Configurar la cámara
+        oCamUi.update();
+        spriteBatch.setProjectionMatrix(oCamUi.combined);
+
+        // Dibujar el fondo y el temporizador
         spriteBatch.begin();
-
-        // Dibujar el texto en el centro de la pantalla
-        font.draw(spriteBatch, layout, (screen_width - layout.width) / 2, (screen_height + layout.height) / 2);
-
-        // Dibujar la imagen en el centro de la pantalla
-        float imageX = (screen_width - image.getWidth()) / 2;
-        float imageY = (screen_height - image.getHeight()) / 2;
-        spriteBatch.draw(image, imageX, imageY);
-
+        spriteBatch.draw(background, 0, 0, screen_width, screen_height);
         spriteBatch.end();
     }
 
@@ -65,6 +62,6 @@ public class PantallaArriba extends Screens {
     @Override
     public void dispose() {
         font.dispose();
-        image.dispose(); // Liberar la memoria de la textura
+        background.dispose(); // Liberar la memoria de la textura
     }
 }
