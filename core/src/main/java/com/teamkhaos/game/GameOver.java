@@ -10,7 +10,7 @@ public class GameOver extends Screens {
 
     public GameOver(Main game) {
         super(game);
-        gameOverImage = new Texture(Gdx.files.internal("assets/IMGgame/boxmapping/meme.png"));
+        gameOverImage = new Texture(Gdx.files.internal("IMGgame/boxmapping/meme.png"));
         batch = new SpriteBatch();
     }
 

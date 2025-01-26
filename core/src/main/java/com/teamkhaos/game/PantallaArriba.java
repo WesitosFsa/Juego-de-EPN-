@@ -19,7 +19,7 @@ public class PantallaArriba extends Screens {
         layout.setText(font, "ARRIBA");
 
         // Cargar la imagen desde la ruta especificada
-        image = new Texture(Gdx.files.internal("android/assets/IMGgame/boxmapping/arriba.png"));
+        image = new Texture(Gdx.files.internal("IMGgame/boxmapping/arriba.png"));
     }
 
     @Override

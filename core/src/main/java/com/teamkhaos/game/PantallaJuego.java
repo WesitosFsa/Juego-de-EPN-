@@ -16,7 +16,7 @@ public class PantallaJuego extends Screens {
         super(game);
 
         // Cargar el fondo de pantalla del juego
-        background = new Texture(Gdx.files.internal("android/assets/IMGgame/boxmapping/centro.png"));
+        background = new Texture(Gdx.files.internal("IMGgame/boxmapping/centro.png"));
 
 
         // Inicializar el temporizador (5 minutos de duración)

@@ -19,7 +19,7 @@ public class PantallaDerecha extends Screens {
         layout.setText(font, "DERECHA");
 
         // Cargar la imagen desde la ruta especificada
-        image = new Texture(Gdx.files.internal("android/assets/IMGgame/boxmapping/derecha.png"));
+        image = new Texture(Gdx.files.internal("IMGgame/boxmapping/derecha.png"));
     }
 
     @Override

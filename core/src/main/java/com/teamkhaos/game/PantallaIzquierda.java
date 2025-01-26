@@ -19,7 +19,7 @@ public class PantallaIzquierda extends Screens {
         layout.setText(font, "IZQUIERDA");
 
         // Cargar la imagen desde la ruta especificada
-        image = new Texture(Gdx.files.internal("android/assets/IMGgame/boxmapping/izquierda.png"));
+        image = new Texture(Gdx.files.internal("IMGgame/boxmapping/izquierda.png"));
     }
 
     @Override

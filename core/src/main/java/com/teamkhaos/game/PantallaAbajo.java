@@ -19,7 +19,7 @@ public class PantallaAbajo extends Screens {
         layout.setText(font, "ABAJO");
 
         // Cargar la imagen desde la ruta especificada
-        image = new Texture(Gdx.files.internal("android/assets/IMGgame/boxmapping/abajo.png"));
+        image = new Texture(Gdx.files.internal("IMGgame/boxmapping/abajo.png"));
     }
 
     @Override

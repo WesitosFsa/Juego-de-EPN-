@@ -38,11 +38,11 @@ public class Assets {
         scrollPaneMenu = new ScrollPane.ScrollPaneStyle(null, knob, knob, knob, knob);
 
         // Cargar texturas para los botones direccionales
-        btnUpTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("android/assets/controls/arriba.png")));
-        btnDownTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("android/assets/controls/abajo.png")));
-        btnLeftTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("android/assets/controls/izquierda.png")));
-        btnRightTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("android/assets/controls/derecha.png")));
-        btnCentertexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("android/assets/controls/centro.png")));
+        btnUpTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/arriba.png")));
+        btnDownTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/abajo.png")));
+        btnLeftTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/izquierda.png")));
+        btnRightTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/derecha.png")));
+        btnCentertexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/centro.png")));
     }
 
     public static ImageButton createDirectionalButton(TextureRegionDrawable texture) {
