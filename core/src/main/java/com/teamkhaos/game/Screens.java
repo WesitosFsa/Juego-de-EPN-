@@ -3,6 +3,7 @@ package com.teamkhaos.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,6 +28,7 @@ public abstract class Screens implements Screen {
     public SpriteBatch spriteBatch;
     public Stage stage;
     private List<ImageButton> buttons;
+    private Sound clickSound;
 
     public Screens(Main game) {
         this.game = game;
@@ -37,6 +39,8 @@ public abstract class Screens implements Screen {
         oCamBOX2D.position.set(world_width / 2f, world_height / 2f, 0);
         Gdx.input.setInputProcessor(new InputMultiplexer(stage));
         spriteBatch = new SpriteBatch();
+
+        clickSound = Gdx.audio.newSound(Gdx.files.internal("audio/audio_boton.mp3"));
 
         buttons = new ArrayList<>(); // Inicializamos la lista de botones
         Assets.load(); // Cargar los recursos desde Assets
@@ -71,30 +75,35 @@ public abstract class Screens implements Screen {
         btnUp.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
                 game.setScreen(new PantallaArriba(game));
             }
         });
         btnDown.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
                 game.setScreen(new PantallaAbajo(game));
             }
         });
         btnLeft.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
                 game.setScreen(new PantallaIzquierda(game));
             }
         });
         btnRight.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
                 game.setScreen(new PantallaDerecha(game));
             }
         });
         btnCenter.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
                 game.setScreen(new PantallaJuego(game));
             }
         });
@@ -134,5 +143,10 @@ public abstract class Screens implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
+    }
+
+    @Override
+    public void dispose() {
+        clickSound.dispose();
     }
 }
