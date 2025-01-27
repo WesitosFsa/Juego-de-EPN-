@@ -22,14 +22,14 @@ public class MenuPrincipal extends Screens {
     private float bg1Speed = 0.1f; // Velocidad de movimiento de la capa 1
     private float bg2Speed = 0.05f; // Velocidad de movimiento de la capa 2
     private Music menuMusic; // Para la música de fondo
-    //private Sound clickSound; // agregar efectos de sonido en los botones si se requiere
+    private Sound clickSound; // agregar efectos de sonido en los botones si se requiere
 
     public MenuPrincipal(Main game) {
         super(game);
 
         // Cargar los archivos de audio
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/audio_prueba.mp3"));
-        //clickSound = Gdx.audio.newSound(Gdx.files.internal("audio/click_sound.mp3"));
+        clickSound = Gdx.audio.newSound(Gdx.files.internal("audio/audio_boton.mp3"));
 
         // Configurar la música de fondo
         menuMusic.setLooping(true); // La música de fondo se repetirá en bucle
@@ -57,7 +57,7 @@ public class MenuPrincipal extends Screens {
             bt1.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    // clickSound.play();  // Reproducir el sonido al hacer clic
+                    clickSound.play();  // Reproducir el sonido al hacer clic
                     menuMusic.stop();  // Detener la música cuando se hace clic en el botón
                     game.timer.reset();
                     game.setScreen(new PantallaJuego(game));
@@ -132,6 +132,6 @@ public class MenuPrincipal extends Screens {
         background2.dispose();
         menuMusic.stop();  // Detener la música
         menuMusic.dispose();  // Liberar el recurso de la música
-        //clickSound.dispose();  // Liberar el recurso del sonido de clic
+        clickSound.dispose();  // Liberar el recurso del sonido de clic
     }
 }
