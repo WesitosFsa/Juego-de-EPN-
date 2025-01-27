@@ -11,7 +11,7 @@ public class GameOver extends Screens {
     public GameOver(Main game) {
         super(game);
         hideButtons(true); // Ocultar los botones al cargar la pantalla de Game Over
-        gameOverImage = new Texture(Gdx.files.internal("IMGgame/boxmapping/meme.png"));
+        gameOverImage = new Texture(Gdx.files.internal("IMGgame/smiledog_gif_by_themask02-d73b63p.gif"));
         batch = new SpriteBatch();
     }
 
