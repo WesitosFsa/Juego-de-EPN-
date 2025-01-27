@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameOver extends Screens {
     private Texture gameOverImage;
     private SpriteBatch batch;
-
+    // test de comit en la pantalla game over
     public GameOver(Main game) {
         super(game);
         hideButtons(true); // Ocultar los botones al cargar la pantalla de Game Over
