@@ -4,14 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class GameOver extends Screens {
-    private Texture gameOverImage;
+public class Ganaste extends Screens {
+    private Texture winImage;
     private SpriteBatch batch;
     // test de comit en la pantalla game over
-    public GameOver(Main game) {
+    public Ganaste(Main game) {
         super(game);
         hideButtons(true); // Ocultar los botones al cargar la pantalla de Game Over
-        gameOverImage = new Texture(Gdx.files.internal("IMGgame/perdiste.gif"));
+        winImage = new Texture(Gdx.files.internal("IMGgame/ganaste.png"));
         batch = new SpriteBatch();
     }
 
@@ -23,7 +23,7 @@ public class GameOver extends Screens {
 
         // Dibujar el fondo y el temporizador
         spriteBatch.begin();
-        spriteBatch.draw(gameOverImage, 0, 0, screen_width, screen_height);
+        spriteBatch.draw(winImage, 0, 0, screen_width, screen_height);
         spriteBatch.end();
     }
 
@@ -54,7 +54,7 @@ public class GameOver extends Screens {
 
     @Override
     public void dispose() {
-        gameOverImage.dispose();
+        winImage.dispose();
         batch.dispose();
     }
 }

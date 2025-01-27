@@ -4,23 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import java.util.Random;
 
 public class PantallaIzquierda extends Screens {
 
     private BitmapFont font;
     private GlyphLayout layout;
-    private Texture background; // Fondo de pantalla
-    private Texture dogTexture; // Imagen del perro
-
-    private float elapsedTime; // Tiempo transcurrido desde que comenzó la animación
-    private boolean reachedMaxSize = false; // Indica si la imagen alcanzó el tamaño máximo
-    private float postMaxTime = 0f; // Tiempo transcurrido después de alcanzar el tamaño máximo
-
-    private final float animationDuration = 6f; // Duración de la animación (6 segundos)
-    private final float initialSize = 50f; // Tamaño inicial (pequeño)
-    private final float maxSize = 200f; // Tamaño máximo (mediano)
-    private final float postMaxDelay = 3f; // Tiempo adicional después de alcanzar el tamaño máximo
-
+    private Texture background; // Nueva textura para la imagen de fondo
+    private Texture randomImage;  // Imagen que aparecerá aleatoriamente
+    private Rectangle imageBounds; // Para controlar la posición y tamaño de la imagen
+    private float imageScale = 0.1f; // Escala inicial de la imagen
+    private float imageGrowthRate = 0.01f; // Tasa de crecimiento de la imagen
+    private boolean isImageVisible = false; // Controla si la imagen está visible
+    private boolean isWaitingForGameOver = false; // Controla si estamos esperando antes del game over
+    private float gameOverWaitTime = 3f; // Tiempo de espera antes del game over
+    private float timeUntilNextImage = 5f; // Tiempo hasta que aparezca la próxima imagen
+    private Random random;
     public Main game;
 
     public PantallaIzquierda(Main game) {
@@ -29,11 +30,14 @@ public class PantallaIzquierda extends Screens {
 
         font = new BitmapFont();
         layout = new GlyphLayout();
-        layout.setText(font, "IZQUIERDA");
+        layout.setText(font, "DERECHA");
 
-        // Cargar texturas
-        background = new Texture(Gdx.files.internal("IMGgame/boxmapping/izquierda.png"));
-        dogTexture = new Texture(Gdx.files.internal("IMGgame/DogMiddle-removebg-preview.png")); // Imagen del perro
+        // Cargar el fondo y la imagen aleatoria
+        background = new Texture(Gdx.files.internal("IMGgame/boxmapping/derecha.png"));
+        randomImage = new Texture(Gdx.files.internal("IMGgame/susto.png"));
+        imageBounds = new Rectangle(0, 0, randomImage.getWidth() * imageScale, randomImage.getHeight() * imageScale);
+
+        random = new Random();
     }
 
     @Override
@@ -42,60 +46,84 @@ public class PantallaIzquierda extends Screens {
         oCamUi.update();
         spriteBatch.setProjectionMatrix(oCamUi.combined);
 
-        // Calcular el tamaño actual en función del tiempo transcurrido
-        float progress = Math.min(elapsedTime / animationDuration, 1f); // Progreso (0 a 1)
-        float currentSize = initialSize + (maxSize - initialSize) * progress; // Tamaño interpolado
-
-        // Verificar si alcanzó el tamaño máximo
-        if (progress >= 1f) {
-            reachedMaxSize = true;
-        }
-
-        // Coordenadas para centrar la imagen
-        float dogX = (screen_width - currentSize) / 2f;
-        float dogY = (screen_height - currentSize) / 2f;
-
-        // Dibujar fondo y, si no está en otra pantalla, dibujar imagen
+        // Dibujar el fondo
         spriteBatch.begin();
-        spriteBatch.draw(background, 0, 0, screen_width, screen_height); // Fondo
+        spriteBatch.draw(background, 0, 0, screen_width, screen_height);
 
-        if (!reachedMaxSize || postMaxTime < postMaxDelay) {
-            spriteBatch.draw(dogTexture, dogX, dogY, currentSize, currentSize); // Imagen con tamaño animado
+        // Dibujar la imagen aleatoria si está visible
+        if (isImageVisible) {
+            // Calcular la posición centrada
+            float centerX = (screen_width - imageBounds.width) / 2;
+            float centerY = (screen_height - imageBounds.height) / 2;
+
+            // Dibujar la imagen en el centro
+            spriteBatch.draw(randomImage, centerX, centerY, imageBounds.width, imageBounds.height);
         }
 
-        game.timer.draw(spriteBatch); // Temporizador
+        game.timer.draw(spriteBatch);  // Dibujar el temporizador global
         spriteBatch.end();
     }
 
     @Override
     public void update(float delta) {
-        // Actualizar el tiempo transcurrido
-        elapsedTime += delta;
+        game.timer.update(delta);  // Usamos el temporizador global
 
-        // Verificar si la imagen alcanzó el tamaño máximo
-        if (reachedMaxSize) {
-            // Ocultar los botones al alcanzar el tamaño máximo
-            super.hideButtons(true);
+        if (isWaitingForGameOver) {
+            // Reducir el tiempo de espera antes del Game Over
+            gameOverWaitTime -= delta;
+            if (gameOverWaitTime <= 0) {
+                game.setScreen(new GameOver(game)); // Cambiar a la pantalla de Game Over después de esperar 3 segundos
+            }
+            return; // No procesar nada más mientras esperamos el Game Over
+        }
 
-            // Incrementar el tiempo después de alcanzar el tamaño máximo
-            postMaxTime += delta;
+        // Si la imagen está visible, hacerla crecer
+        if (isImageVisible) {
+            imageBounds.width = randomImage.getWidth() * imageScale;
+            imageBounds.height = randomImage.getHeight() * imageScale;
 
-            // Verificar si ha pasado el tiempo de espera adicional
-            if (postMaxTime >= postMaxDelay) {
-                game.setScreen(new GameOver(game)); // Cambiar a la pantalla de GameOver
+            // Aumentar el tamaño de la imagen
+            imageScale += imageGrowthRate;
+
+            // Comprobar si la imagen alcanza el tamaño crítico
+            if (imageBounds.height > screen_height * 0.5f) {
+                // Iniciar el período de espera para el Game Over
+                super.hideButtons(true);
+                isWaitingForGameOver = true;
+                isImageVisible = true;
+
+                return;
             }
         }
 
-        game.timer.update(delta);
+        // Verificar si el jugador hizo clic en la imagen
+        if (Gdx.input.isTouched() && isImageVisible) {
+            float centerX = (screen_width - imageBounds.width) / 2;
+            float centerY = (screen_height - imageBounds.height) / 2;
+            if (imageBounds.contains(Gdx.input.getX() - centerX, screen_height - Gdx.input.getY() - centerY)) {
+                isImageVisible = false; // Eliminar la imagen si se hace clic en ella
+            }
+        }
+
+        // Verificar el temporizador para mostrar una nueva imagen aleatoria
+        timeUntilNextImage -= delta;
+        if (timeUntilNextImage <= 0) {
+            isImageVisible = true; // Hacer visible la imagen
+            imageScale = 0.1f; // Restablecer el tamaño de la imagen
+            imageBounds.setWidth(randomImage.getWidth() * imageScale);
+            imageBounds.setHeight(randomImage.getHeight() * imageScale);
+
+            // Reiniciar el temporizador para la próxima aparición
+            timeUntilNextImage = random.nextFloat() * 5 + 3; // Aparece después de 3-8 segundos aleatorios
+        }
+
+        if (game.timer.isGameOver()) {
+            game.setScreen(new Ganaste(game)); // Cambiar a la pantalla de "Ganaste"
+        }
     }
 
     @Override
-    public void show() {
-        // Reiniciar los valores cuando la pantalla se muestra nuevamente
-        elapsedTime = 0f;
-        reachedMaxSize = false;
-        postMaxTime = 0f;
-    }
+    public void show() {}
 
     @Override
     public void pause() {}
@@ -104,14 +132,12 @@ public class PantallaIzquierda extends Screens {
     public void resume() {}
 
     @Override
-    public void hide() {
-        // Si la pantalla se oculta, liberar recursos relacionados con la animación (opcional)
-    }
+    public void hide() {}
 
     @Override
     public void dispose() {
         font.dispose();
         background.dispose();
-        dogTexture.dispose(); // Liberar memoria de la imagen
+        randomImage.dispose(); // Liberar la memoria de la imagen
     }
 }
