@@ -40,7 +40,7 @@ public class PantallaJuego extends Screens {
         // Verificar si el juego ha terminado
         if (game.timer.isGameOver()) {
             escenemusic.stop();
-            game.setScreen(new GameOver(game)); // Cambiar a la pantalla de Game Over
+            game.setScreen(new Ganaste(game)); // Cambiar a la pantalla de Game Over
         }
     }
 
