@@ -33,7 +33,7 @@ public class Historia extends Screens {
                 game.timer.reset();
                 game.setScreen(new PantallaJuego(game));
             }
-        }, 2);
+        }, 4);
     }
 
     @Override

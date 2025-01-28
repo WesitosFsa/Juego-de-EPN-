@@ -16,8 +16,7 @@ public class Main extends Game {
         // Configurar la música de fondo
         escenemusic.setLooping(true); // La música de fondo se repetirá en bucle
         escenemusic.setVolume(1.0f);  // Ajustar el volumen (0.0f a 1.0f)
-
-        horrorsound.setLooping(true); // La música de fondo se repetirá en bucle
+        
         horrorsound.setVolume(1.0f);  // Ajustar el volumen (0.0f a 1.0f)
 
         Assets.load();
