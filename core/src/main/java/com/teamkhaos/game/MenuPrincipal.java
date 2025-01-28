@@ -68,7 +68,7 @@ public class MenuPrincipal extends Screens {
                     clickSound.play();  // Reproducir el sonido al hacer clic
                     menuMusic.stop();  // Detener la música cuando se hace clic en el botón
                     game.timer.reset();
-                    game.setScreen(new PantallaJuego(game));
+                    game.setScreen(new Historia(game));
                 }
             });
             menu.row().padTop(20).height(50);
