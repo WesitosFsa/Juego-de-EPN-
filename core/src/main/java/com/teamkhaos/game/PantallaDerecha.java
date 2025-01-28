@@ -72,6 +72,8 @@ public class PantallaDerecha extends Screens {
             // Reducir el tiempo de espera antes del Game Over
             gameOverWaitTime -= delta;
             if (gameOverWaitTime <= 0) {
+                game.escenemusic.stop();
+                game.escenemusic.dispose();
                 game.setScreen(new GameOver(game)); // Cambiar a la pantalla de Game Over después de esperar 3 segundos
             }
             return; // No procesar nada más mientras esperamos el Game Over

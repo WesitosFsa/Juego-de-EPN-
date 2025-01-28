@@ -23,9 +23,10 @@ public class MenuPrincipal extends Screens {
     private float bg2Speed = 0.05f; // Velocidad de movimiento de la capa 2
     private Music menuMusic; // Para la música de fondo
     private Sound clickSound; // agregar efectos de sonido en los botones si se requiere
-
+    public Main game;
     public MenuPrincipal(Main game) {
         super(game);
+        this.game = game;  // Guardamos la instancia de Main para acceder al temporizador
 
         // Cargar los archivos de audio
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/audio_prueba.mp3"));
@@ -57,6 +58,7 @@ public class MenuPrincipal extends Screens {
             bt1.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    game.escenemusic.play();
                     clickSound.play();  // Reproducir el sonido al hacer clic
                     menuMusic.stop();  // Detener la música cuando se hace clic en el botón
                     game.timer.reset();
@@ -72,6 +74,7 @@ public class MenuPrincipal extends Screens {
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();  // Reproducir el sonido al hacer clic
                 Gdx.app.exit();
             }
         });

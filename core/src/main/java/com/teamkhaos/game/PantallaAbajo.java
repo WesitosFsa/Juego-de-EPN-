@@ -1,8 +1,6 @@
 package com.teamkhaos.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -45,6 +43,8 @@ public class PantallaAbajo extends Screens {
 
         // Verificar si el juego ha terminado
         if (game.timer.isGameOver()) {
+            game.escenemusic.stop();
+            game.escenemusic.dispose();
             game.setScreen(new Ganaste(game)); // Cambiar a la pantalla de Game Over
         }
     }
