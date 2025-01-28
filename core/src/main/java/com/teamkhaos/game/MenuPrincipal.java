@@ -17,10 +17,14 @@ public class MenuPrincipal extends Screens {
     ScrollPane scroll;
     private Texture background1;  // Capa de fondo más cercana
     private Texture background2;  // Capa de fondo más lejana
+    private Texture background3; // Capa extra
+    private Texture Logo;
     private SpriteBatch batch;    // Para dibujar las imágenes
-    private float bg1X, bg2X;    // Posiciones de las capas
-    private float bg1Speed = 0.1f; // Velocidad de movimiento de la capa 1
-    private float bg2Speed = 0.05f; // Velocidad de movimiento de la capa 2
+    private float bg1Y, bg2Y, bg3Y;    // Posiciones verticales de las capas
+    private float bg1Speed = 0.5f;     // Velocidad de movimiento de la capa 1
+    private float bg2Speed = 0.2f;     // Velocidad de movimiento de la capa 2
+    private float bg3Speed = 0.1f;     // Velocidad de movimiento de la capa 3
+
     private Music menuMusic; // Para la música de fondo
     private Sound clickSound; // agregar efectos de sonido en los botones si se requiere
     public Main game;
@@ -42,12 +46,14 @@ public class MenuPrincipal extends Screens {
         hideButtons(true);
 
         // Cargar las imágenes de fondo
-        background1 = new Texture(Gdx.files.internal("IMGgame/background_menu_near.png"));
-        background2 = new Texture(Gdx.files.internal("IMGgame/background_menu_far.png"));
+        background1 = new Texture(Gdx.files.internal("filtros/filtro1.png"));
+        background2 = new Texture(Gdx.files.internal("filtros/filtro2.png"));
+        background3 = new Texture(Gdx.files.internal("filtros/filtro3.png"));
         batch = new SpriteBatch();
         // Inicializar las posiciones de las capas
-        bg1X = 0;
-        bg2X = 0;
+        bg1Y = 0;
+        bg2Y = 0;
+        bg3Y = 0;
         // Crear la tabla para el menú
         Table menu = new Table();
         menu.setFillParent(true);
@@ -89,16 +95,20 @@ public class MenuPrincipal extends Screens {
 
     @Override
     public void draw(float delta) {
-        // Mover las capas de fondo
-        bg1X -= bg1Speed; // Capa más cercana se mueve más rápido
-        bg2X -= bg2Speed; // Capa más lejana se mueve más lento
+        // Mover las capas de fondo hacia abajo
+        bg1Y -= bg1Speed; // Capa más cercana se mueve más rápido
+        bg2Y -= bg2Speed; // Capa más lejana se mueve más lento
+        bg3Y -= bg3Speed; // Capa extra
 
         // Si la capa alcanza el final de la pantalla, reiniciar su posición
-        if (bg1X <= -screen_width) {
-            bg1X = 0;
+        if (bg1Y <= -screen_height) {
+            bg1Y = 0;
         }
-        if (bg2X <= -screen_width) {
-            bg2X = 0;
+        if (bg2Y <= -screen_height) {
+            bg2Y = 0;
+        }
+        if (bg3Y <= -screen_height) {
+            bg3Y = 0;
         }
 
         // Dibujar las capas de fondo
@@ -106,11 +116,18 @@ public class MenuPrincipal extends Screens {
         spriteBatch.setProjectionMatrix(oCamUi.combined);
         spriteBatch.begin();
 
+        // Fondo más lejano (background3)
+        spriteBatch.draw(background3, 0, bg3Y, screen_width, screen_height);
+        spriteBatch.draw(background3, 0, bg3Y + screen_height, screen_width, screen_height);
 
-        spriteBatch.draw(background2, bg2X, 0, screen_width, screen_height); // Fondo lejano
-        spriteBatch.draw(background2, bg2X + screen_width, 0, screen_width, screen_height); // Repetir fondo lejano
-        spriteBatch.draw(background1, bg1X, 0, screen_width, screen_height); // Fondo cercano
-        spriteBatch.draw(background1, bg1X + screen_width, 0, screen_width, screen_height); // Repetir fondo cercano
+        // Fondo intermedio (background2)
+        spriteBatch.draw(background2, 0, bg2Y, screen_width, screen_height);
+        spriteBatch.draw(background2, 0, bg2Y + screen_height, screen_width, screen_height);
+
+        // Fondo más cercano (background1)
+        spriteBatch.draw(background1, 0, bg1Y, screen_width, screen_height);
+        spriteBatch.draw(background1, 0, bg1Y + screen_height, screen_width, screen_height);
+
         spriteBatch.end();
     }
     @Override
@@ -133,6 +150,7 @@ public class MenuPrincipal extends Screens {
     public void dispose() {
         background1.dispose();  // Liberar memoria de las texturas
         background2.dispose();
+        background3.dispose();
         menuMusic.stop();  // Detener la música
         menuMusic.dispose();  // Liberar el recurso de la música
         clickSound.dispose();  // Liberar el recurso del sonido de clic
