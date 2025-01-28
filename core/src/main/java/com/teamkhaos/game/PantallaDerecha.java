@@ -71,9 +71,10 @@ public class PantallaDerecha extends Screens {
         if (isWaitingForGameOver) {
             // Reducir el tiempo de espera antes del Game Over
             gameOverWaitTime -= delta;
+            game.escenemusic.stop();
+            game.escenemusic.dispose();
             if (gameOverWaitTime <= 0) {
-                game.escenemusic.stop();
-                game.escenemusic.dispose();
+                game.horrorsound.play();
                 game.setScreen(new GameOver(game)); // Cambiar a la pantalla de Game Over después de esperar 3 segundos
             }
             return; // No procesar nada más mientras esperamos el Game Over
@@ -120,6 +121,8 @@ public class PantallaDerecha extends Screens {
         }
 
         if (game.timer.isGameOver()) {
+            game.escenemusic.stop();
+            game.escenemusic.dispose();
             game.setScreen(new Ganaste(game)); // Cambiar a la pantalla de "Ganaste"
         }
     }
