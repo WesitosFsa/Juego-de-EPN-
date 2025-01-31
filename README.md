@@ -52,9 +52,9 @@ Para ejecutar una versión específica del proyecto, usa `nombre_modulo:tarea`, 
 
 ## Descarga
 
-📥 **Descarga el APK**: [Enlace de descarga](#) *(Próximamente)*
+📥 **Descarga el APK**: [Enlace de descarga](https://drive.google.com/drive/folders/13x15izylB9g3uMyMarH4RQ3oClqri-cs?usp=sharing)
 
-📺 **Gameplay**: [Ver en YouTube](#) *(Próximamente)*
+📺 **Gameplay**: [Ver en YouTube](https://www.youtube.com/shorts/37ctCPozL2o)
 
 ---
 
