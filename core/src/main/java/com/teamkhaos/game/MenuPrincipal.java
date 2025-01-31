@@ -18,6 +18,8 @@ public class MenuPrincipal extends Screens {
     private Texture background1;  // Capa de fondo más cercana
     private Texture background2;  // Capa de fondo más lejana
     private Texture background3; // Capa extra
+    private Texture backgroundstatico; // Capa extra
+
     private Texture Logo;
     private SpriteBatch batch;    // Para dibujar las imágenes
     private float bg1Y, bg2Y, bg3Y;    // Posiciones verticales de las capas
@@ -49,6 +51,7 @@ public class MenuPrincipal extends Screens {
         background1 = new Texture(Gdx.files.internal("filtros/filtro1.png"));
         background2 = new Texture(Gdx.files.internal("filtros/filtro2.png"));
         background3 = new Texture(Gdx.files.internal("filtros/filtro3.png"));
+        backgroundstatico = new Texture(Gdx.files.internal("filtros/Inicio.png"));
         batch = new SpriteBatch();
         // Inicializar las posiciones de las capas
         bg1Y = 0;
@@ -127,6 +130,8 @@ public class MenuPrincipal extends Screens {
         // Fondo más cercano (background1)
         spriteBatch.draw(background1, 0, bg1Y, screen_width, screen_height);
         spriteBatch.draw(background1, 0, bg1Y + screen_height, screen_width, screen_height);
+
+        spriteBatch.draw(backgroundstatico, 0, 0, screen_width, screen_height);
 
         spriteBatch.end();
     }
