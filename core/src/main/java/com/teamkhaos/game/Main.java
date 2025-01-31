@@ -10,9 +10,11 @@ public class Main extends Game {
     public Temporizador timer;
     public static Music escenemusic;
     public static Music horrorsound;
+    public static Music WinSound;
     public void create() {
         escenemusic = Gdx.audio.newMusic(Gdx.files.internal("audio/audio_escenas.mp3"));
         horrorsound = Gdx.audio.newMusic(Gdx.files.internal("audio/audio_grito.mp3"));
+        WinSound = Gdx.audio.newMusic(Gdx.files.internal("audio/audio_ganar.mp3"));
         // Configurar la música de fondo
         escenemusic.setLooping(true); // La música de fondo se repetirá en bucle
         escenemusic.setVolume(1.0f);  // Ajustar el volumen (0.0f a 1.0f)

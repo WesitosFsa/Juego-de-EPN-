@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Ganaste extends Screens {
     private Texture winImage;
     private SpriteBatch batch;
+    private float timer;
     // test de comit en la pantalla game over
     public Ganaste(Main game) {
         super(game);
         hideButtons(true); // Ocultar los botones al cargar la pantalla de Game Over
         winImage = new Texture(Gdx.files.internal("IMGgame/ganaste.png"));
         batch = new SpriteBatch();
+        timer = 0; // Iniciamos el temporizador en 0
     }
 
     @Override
@@ -29,7 +31,13 @@ public class Ganaste extends Screens {
 
     @Override
     public void update(float delta) {
-        // No se necesita actualizar nada por ahora
+        // Actualizar el temporizador
+        timer += delta; // Incrementamos el temporizador con el paso del tiempo
+
+        // Si han pasado 4 segundos, cambiamos a la pantalla MenuPrincipal
+        if (timer >= 11) {
+            game.setScreen(new MenuPrincipal(game)); // Cambiar a la pantalla de menú
+        }
     }
 
     @Override

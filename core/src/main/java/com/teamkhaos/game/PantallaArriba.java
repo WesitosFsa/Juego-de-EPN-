@@ -121,6 +121,7 @@ public class PantallaArriba extends Screens {
 
         if (game.timer.isGameOver()) {
             game.escenemusic.stop();
+            game.WinSound.play();
             game.escenemusic.dispose();
             game.setScreen(new Ganaste(game)); // Cambiar a la pantalla de "Ganaste"
         }

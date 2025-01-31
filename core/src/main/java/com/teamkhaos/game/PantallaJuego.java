@@ -32,6 +32,7 @@ public class PantallaJuego extends Screens {
         // Verificar si el juego ha terminado
         if (game.timer.isGameOver()) {
             game.escenemusic.stop();
+            game.WinSound.play();
             game.escenemusic.dispose();  // Liberar el recurso de la música
             game.setScreen(new Ganaste(game)); // Cambiar a la pantalla de Game Over
         }
