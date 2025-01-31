@@ -32,7 +32,7 @@ public class PantallaArriba extends Screens {
         layout.setText(font, "ARRIBA");
 
         // Cargar el fondo y la imagen aleatoria
-        background = new Texture(Gdx.files.internal("IMGgame/boxmapping/derecha.png"));
+        background = new Texture(Gdx.files.internal("IMGgame/boxmapping/arriba.png"));
         randomImage = new Texture(Gdx.files.internal("IMGgame/susto2.png"));
         imageBounds = new Rectangle(0, 0, randomImage.getWidth() * imageScale, randomImage.getHeight() * imageScale);
 
