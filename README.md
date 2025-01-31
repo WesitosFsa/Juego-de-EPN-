@@ -1,6 +1,6 @@
 # Cinco Noches en la Poli
 
-Un juego de terror inspirado en los misterios y leyendas urbanas de la Escuela Politécnica Nacional (EPN). Desarrollado con [libGDX](https://libgdx.com/) y generado con [gdx-liftoff](https://github.com/libgdx/gdx-liftoff), este proyecto busca sumergir a los jugadores en una experiencia aterradora basada en eventos paranormales y desapariciones dentro del campus.
+Un juego de terror inspirado en la saga de juegos indie FIVE NIGTHS AT FREDDYS desarrollado por Scott Cawthon y leyendas urbanas de la Escuela Politécnica Nacional (EPN). Desarrollado con [libGDX](https://libgdx.com/) y generado con [gdx-liftoff](https://github.com/libgdx/gdx-liftoff), este proyecto busca sumergir a los jugadores en una experiencia aterradora basada en eventos paranormales y desapariciones dentro del campus.
 
 ## Sinopsis
 
@@ -57,14 +57,19 @@ Para ejecutar una versión específica del proyecto, usa `nombre_modulo:tarea`, 
 
 ## Autores
 
-- **[Tu Nombre]** - Programación y diseño.
-- **[Colaboradores]** - Historia, arte y sonido.
+- **[Mateo Garzon]** - Programación y diseño.
+- **[Luis Guaygua]** - Programación y diseño.
+- **[Eduardo Caza]** - Historia y sonido.
+- **[Yuverly Verdezoto]** - Arte e Interfaces.
 
-¿Tienes preguntas o sugerencias? Contáctanos en [*correo@ejemplo.com*](mailto\:correo@ejemplo.com).
+¿Tienes preguntas o sugerencias? Contáctanos en [*teamkhaoselmly@gmail.com*](mailto\:teamkhaoselmly@gmail.com).
 
 ---
 
 ## Licencia
 
-Este proyecto está bajo la licencia MIT. Puedes leer más en el archivo [LICENSE](LICENSE).
+Este proyecto está bajo la licencia MIT.
+Desarrollado por el Team Khaos
+
+![Game Store](https://github.com/user-attachments/assets/c3f9d08d-edcf-417f-8d26-a3a22791d604)
 
