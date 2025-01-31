@@ -7,12 +7,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameOver extends Screens {
     private Texture gameOverImage;
     private SpriteBatch batch;
-    // test de comit en la pantalla game over
+    private float timer; // Temporizador para cambiar de pantalla después de 4 segundos
+    private Main game;
+
     public GameOver(Main game) {
         super(game);
+        this.game = game;
         hideButtons(true); // Ocultar los botones al cargar la pantalla de Game Over
         gameOverImage = new Texture(Gdx.files.internal("IMGgame/perdiste.gif"));
         batch = new SpriteBatch();
+        timer = 0; // Iniciamos el temporizador en 0
     }
 
     @Override
@@ -29,7 +33,13 @@ public class GameOver extends Screens {
 
     @Override
     public void update(float delta) {
-        // No se necesita actualizar nada por ahora
+        // Actualizar el temporizador
+        timer += delta; // Incrementamos el temporizador con el paso del tiempo
+
+        // Si han pasado 4 segundos, cambiamos a la pantalla MenuPrincipal
+        if (timer >= 6) {
+            game.setScreen(new MenuPrincipal(game)); // Cambiar a la pantalla de menú
+        }
     }
 
     @Override
