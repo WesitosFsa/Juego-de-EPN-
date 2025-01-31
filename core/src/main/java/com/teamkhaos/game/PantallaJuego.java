@@ -17,10 +17,10 @@ public class PantallaJuego extends Screens {
     public PantallaJuego(Main game) {
         super(game);
         this.game = game;  // Guardamos la instancia de Main para acceder al temporizador
+        hideButtons2(true, btnCenter,btnUp2,btnDown2,btnLeft2,btnRight2);
 
         // Cargar el fondo de pantalla del juego
         background = new Texture(Gdx.files.internal("IMGgame/boxmapping/centro.png"));
-
 
     }
 //intentar guardar en variable para que no se pierda if pantalla 2 guarde tiepo  en a
@@ -49,7 +49,6 @@ public class PantallaJuego extends Screens {
         game.timer.draw(spriteBatch);  // Dibujar el temporizador global
         spriteBatch.end();
     }
-
     @Override
     public void show() {
 

@@ -23,6 +23,11 @@ public class Assets {
     public static TextureRegionDrawable btnRightTexture;
     public static TextureRegionDrawable btnCentertexture;
 
+    public static TextureRegionDrawable btnUpTexture2;
+    public static TextureRegionDrawable btnDownTexture2;
+    public static TextureRegionDrawable btnLeftTexture2;
+    public static TextureRegionDrawable btnRightTexture2;
+
     public static void load() {
         font = new BitmapFont();
 
@@ -38,11 +43,15 @@ public class Assets {
         scrollPaneMenu = new ScrollPane.ScrollPaneStyle(null, knob, knob, knob, knob);
 
         // Cargar texturas para los botones direccionales
-        btnUpTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/arriba.png")));
-        btnDownTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/abajo.png")));
-        btnLeftTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/izquierda.png")));
-        btnRightTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/derecha.png")));
-        btnCentertexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/centro.png")));
+        btnUpTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/boton_arriba.png")));
+        btnDownTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/boton_abajo.png")));
+        btnLeftTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/boton_izquierda.png")));
+        btnRightTexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/boton_derecha.png")));
+        btnCentertexture = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/boton_centro_arriba_abajo.png")));
+        btnUpTexture2 = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/boton_centro_arriba_abajo.png")));
+        btnDownTexture2 = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/boton_centro_arriba_abajo.png")));
+        btnLeftTexture2 = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/boton_centro_lados.png")));
+        btnRightTexture2 = new TextureRegionDrawable(new TextureRegion(new com.badlogic.gdx.graphics.Texture("controls/boton_centro_lados.png")));
     }
 
     public static ImageButton createDirectionalButton(TextureRegionDrawable texture) {

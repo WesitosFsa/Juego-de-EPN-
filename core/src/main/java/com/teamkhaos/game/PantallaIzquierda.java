@@ -27,13 +27,13 @@ public class PantallaIzquierda extends Screens {
     public PantallaIzquierda(Main game) {
         super(game);
         this.game = game;
-
+        hideButtons2(true, btnCenter,btnDown,btnUp,btnUp2,btnDown2,btnLeft,btnLeft2,btnRight);
         font = new BitmapFont();
         layout = new GlyphLayout();
-        layout.setText(font, "DERECHA");
+        layout.setText(font, "IZQUIERDA");
 
         // Cargar el fondo y la imagen aleatoria
-        background = new Texture(Gdx.files.internal("IMGgame/boxmapping/derecha.png"));
+        background = new Texture(Gdx.files.internal("IMGgame/boxmapping/izquierda.png"));
         randomImage = new Texture(Gdx.files.internal("IMGgame/susto.png"));
         imageBounds = new Rectangle(0, 0, randomImage.getWidth() * imageScale, randomImage.getHeight() * imageScale);
 

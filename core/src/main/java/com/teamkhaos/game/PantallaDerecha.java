@@ -31,7 +31,7 @@ public class PantallaDerecha extends Screens {
         font = new BitmapFont();
         layout = new GlyphLayout();
         layout.setText(font, "DERECHA");
-
+        hideButtons2(true, btnCenter,btnDown,btnUp,btnUp2,btnDown2,btnRight2,btnRight);
         // Cargar el fondo y la imagen aleatoria
         background = new Texture(Gdx.files.internal("IMGgame/boxmapping/derecha.png"));
         randomImage = new Texture(Gdx.files.internal("IMGgame/susto2.png"));

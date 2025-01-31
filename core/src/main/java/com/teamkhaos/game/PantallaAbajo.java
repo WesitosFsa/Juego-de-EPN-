@@ -27,7 +27,7 @@ public class PantallaAbajo extends Screens {
     public PantallaAbajo(Main game) {
         super(game);
         this.game = game;  // Guardamos la instancia de Main para acceder al temporizador
-
+        hideButtons2(true, btnCenter,btnDown,btnLeft,btnRight,btnUp,btnDown2,btnLeft2,btnRight2);
         font = new BitmapFont();
         layout = new GlyphLayout();
         layout.setText(font, "ABAJO");

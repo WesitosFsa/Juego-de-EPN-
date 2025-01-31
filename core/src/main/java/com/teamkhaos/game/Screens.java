@@ -22,6 +22,16 @@ public abstract class Screens implements Screen {
     public static final float world_height = 4.8f;
     public static final float world_width = 8f;
 
+    public ImageButton btnUp = Assets.createDirectionalButton(Assets.btnUpTexture);
+    public ImageButton btnDown = Assets.createDirectionalButton(Assets.btnDownTexture);
+    public ImageButton btnLeft = Assets.createDirectionalButton(Assets.btnLeftTexture);
+    public ImageButton btnRight = Assets.createDirectionalButton(Assets.btnRightTexture);
+    public ImageButton btnCenter = Assets.createDirectionalButton(Assets.btnCentertexture);
+    public ImageButton btnUp2 = Assets.createDirectionalButton(Assets.btnUpTexture2);
+    public ImageButton btnDown2 = Assets.createDirectionalButton(Assets.btnDownTexture2);
+    public ImageButton btnLeft2 = Assets.createDirectionalButton(Assets.btnLeftTexture2);
+    public ImageButton btnRight2 = Assets.createDirectionalButton(Assets.btnRightTexture2);
+
     public Main game;
     public OrthographicCamera oCamUi;
     public OrthographicCamera oCamBOX2D;
@@ -48,28 +58,32 @@ public abstract class Screens implements Screen {
     }
 
     private void createControls() {
-        float btnSize = 40f;
-        float margin = 20f;
-        float posX = margin;
-        float posY = margin;
+        float btnSize = 40f; // Tamaño de los botones
+        float margin = 20f; // Margen para evitar que los botones estén pegados al borde de la pantalla
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
 
-        ImageButton btnUp = Assets.createDirectionalButton(Assets.btnUpTexture);
-        ImageButton btnDown = Assets.createDirectionalButton(Assets.btnDownTexture);
-        ImageButton btnLeft = Assets.createDirectionalButton(Assets.btnLeftTexture);
-        ImageButton btnRight = Assets.createDirectionalButton(Assets.btnRightTexture);
-        ImageButton btnCenter = Assets.createDirectionalButton(Assets.btnCentertexture);
 
         btnUp.setSize(btnSize, btnSize);
         btnDown.setSize(btnSize, btnSize);
         btnLeft.setSize(btnSize, btnSize);
         btnRight.setSize(btnSize, btnSize);
         btnCenter.setSize(btnSize, btnSize);
+        btnUp2.setSize(btnSize, btnSize);
+        btnDown2.setSize(btnSize, btnSize);
+        btnLeft2.setSize(btnSize, btnSize);
+        btnRight2.setSize(btnSize, btnSize);
 
-        btnUp.setPosition(posX + btnSize, posY + btnSize * 2);
-        btnDown.setPosition(posX + btnSize, posY);
-        btnLeft.setPosition(posX, posY + btnSize);
-        btnRight.setPosition(posX + btnSize * 2, posY + btnSize);
-        btnCenter.setPosition(posX + btnSize, posY + btnSize);
+        // Posicionar los botones en los extremos de la pantalla
+        btnUp.setPosition((screenWidth - btnSize) / 2, screenHeight - btnSize - margin); // Centro arriba
+        btnDown.setPosition((screenWidth - btnSize) / 2, margin); // Centro abajo
+        btnLeft.setPosition(margin, (screenHeight - btnSize) / 2); // Izquierda centro
+        btnRight.setPosition(screenWidth - btnSize - margin, (screenHeight - btnSize) / 2); // Derecha centro
+        btnCenter.setPosition((screenWidth - btnSize) / 2, (screenHeight - btnSize) / 2); // Centro de la pantalla
+        btnUp2.setPosition((screenWidth - btnSize) / 2, screenHeight - btnSize - margin);
+        btnDown2.setPosition((screenWidth - btnSize) / 2, margin); // Centro abajo
+        btnLeft2.setPosition(margin, (screenHeight - btnSize) / 2); // Izquierda centro
+        btnRight2.setPosition(screenWidth - btnSize - margin, (screenHeight - btnSize) / 2); // Derecha centro
 
         // Listeners para los botones
         btnUp.addListener(new ClickListener() {
@@ -100,7 +114,28 @@ public abstract class Screens implements Screen {
                 game.setScreen(new PantallaDerecha(game));
             }
         });
-        btnCenter.addListener(new ClickListener() {
+        btnUp2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
+                game.setScreen(new PantallaJuego(game));
+            }
+        });
+        btnDown2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
+                game.setScreen(new PantallaJuego(game));
+            }
+        });
+        btnLeft2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
+                game.setScreen(new PantallaJuego(game));
+            }
+        });
+        btnRight2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 clickSound.play();
@@ -113,14 +148,26 @@ public abstract class Screens implements Screen {
         stage.addActor(btnDown);
         stage.addActor(btnLeft);
         stage.addActor(btnRight);
-        stage.addActor(btnCenter);
+        stage.addActor(btnUp2);
+        stage.addActor(btnRight2);
+        stage.addActor(btnLeft2);
+        stage.addActor(btnDown2);
+
+
+
+
 
         buttons.add(btnUp);
         buttons.add(btnDown);
         buttons.add(btnLeft);
         buttons.add(btnRight);
-        buttons.add(btnCenter);
+        buttons.add(btnUp2);
+        buttons.add(btnRight2);
+        buttons.add(btnLeft2);
+        buttons.add(btnDown2);
+
     }
+
 
     // Función para ocultar los botones
     public void hideButtons(boolean hide) {
@@ -128,6 +175,19 @@ public abstract class Screens implements Screen {
             button.setVisible(!hide);
         }
     }
+    // Función para ocultar botones específicos
+    public void hideButtons2(boolean hide, ImageButton... buttonsToHide) {
+        // Si no se especifican botones, no hacer nada
+        if (buttonsToHide == null || buttonsToHide.length == 0) {
+            return;
+        }
+
+        // Ocultar solo los botones especificados
+        for (ImageButton button : buttonsToHide) {
+            button.setVisible(!hide);
+        }
+    }
+
 
     public void render(float delta) {
         update(delta);
