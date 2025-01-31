@@ -17,15 +17,8 @@ public class Historia extends Screens {
     public Historia(Main game) {
         super(game);
         hideButtons(true); // Ocultar los botones al cargar la pantalla de Game Over
-        winImage = new Texture(Gdx.files.internal("IMGgame/perdiste.gif"));
+        winImage = new Texture(Gdx.files.internal("IMGgame/diario.png"));
         batch = new SpriteBatch();
-        font = new BitmapFont(); // Fuente predeterminada de LibGDX
-        font.getData().setScale(1); // Escalar la fuente para que sea más visible
-        layout = new GlyphLayout();
-        message = "Se solicita guardia nocturno en la Escuela Politécnica Nacional\n" +
-            "Los Poliperros informan: Existe un virus que enfermó a los poliperros...\n" +
-            "No se sabe de momento el motivo de la infección";
-
         // Cambiar de pantalla después de 2 segundos
         Timer.schedule(new Timer.Task() {
             @Override
@@ -43,8 +36,6 @@ public class Historia extends Screens {
 
         spriteBatch.begin();
         spriteBatch.draw(winImage, 0, 0, screen_width, screen_height);
-        layout.setText(font, message);
-        font.draw(spriteBatch, layout, (screen_width - layout.width) / 2, (screen_height + layout.height) / 2);
         spriteBatch.end();
     }
 

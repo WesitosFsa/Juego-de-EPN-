@@ -16,7 +16,7 @@ public class Splashscreen extends Screens {
 
     public Splashscreen(Main game) {
         super(game);
-        logoImage = new Texture(Gdx.files.internal("assets/IMGgame/Game_store.png")); // Imagen adicional
+        logoImage = new Texture(Gdx.files.internal("IMGgame/Game_Store.png")); // Imagen adicional
         batch = new SpriteBatch();
         font = new BitmapFont(); // Fuente predeterminada de LibGDX
         font.getData().setScale(1); // Escalar la fuente para que sea más visible

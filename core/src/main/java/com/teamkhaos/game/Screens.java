@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import java.util.ArrayList;
@@ -42,7 +43,8 @@ public abstract class Screens implements Screen {
 
     public Screens(Main game) {
         this.game = game;
-        stage = new Stage(new StretchViewport(Screens.screen_width, Screens.screen_height));
+        stage = new Stage(new FitViewport(Screens.screen_width, Screens.screen_height));
+
         oCamUi = new OrthographicCamera(screen_width, screen_height);
         oCamUi.position.set(screen_width / 2f, screen_height / 2f, 0);
         oCamBOX2D = new OrthographicCamera(world_width, world_height);
@@ -58,28 +60,30 @@ public abstract class Screens implements Screen {
     }
 
     private void createControls() {
-        float btnSize = 40f; // Tamaño de los botones
-        float margin = 20f; // Margen para evitar que los botones estén pegados al borde de la pantalla
-        float screenWidth = Gdx.graphics.getWidth();
-        float screenHeight = Gdx.graphics.getHeight();
+        float btnSize = 40f;
+        float margin = 20f;
 
+        float screenWidth = stage.getViewport().getWorldWidth();
+        float screenHeight = stage.getViewport().getWorldHeight();
 
         btnUp.setSize(btnSize, btnSize);
         btnDown.setSize(btnSize, btnSize);
         btnLeft.setSize(btnSize, btnSize);
         btnRight.setSize(btnSize, btnSize);
         btnCenter.setSize(btnSize, btnSize);
-        btnUp2.setSize(btnSize, btnSize);
-        btnDown2.setSize(btnSize, btnSize);
-        btnLeft2.setSize(btnSize, btnSize);
-        btnRight2.setSize(btnSize, btnSize);
+        //btnUp2.setSize(btnSize, btnSize);
+        //btnDown2.setSize(btnSize, btnSize);
+        //btnLeft2.setSize(btnSize, btnSize);
+       // btnRight2.setSize(btnSize, btnSize);
 
         // Posicionar los botones en los extremos de la pantalla
+
         btnUp.setPosition((screenWidth - btnSize) / 2, screenHeight - btnSize - margin); // Centro arriba
         btnDown.setPosition((screenWidth - btnSize) / 2, margin); // Centro abajo
         btnLeft.setPosition(margin, (screenHeight - btnSize) / 2); // Izquierda centro
         btnRight.setPosition(screenWidth - btnSize - margin, (screenHeight - btnSize) / 2); // Derecha centro
-        btnCenter.setPosition((screenWidth - btnSize) / 2, (screenHeight - btnSize) / 2); // Centro de la pantalla
+        btnCenter.setPosition((screenWidth - btnSize) / 2, (screenHeight - btnSize) / 2); // Centro
+
         btnUp2.setPosition((screenWidth - btnSize) / 2, screenHeight - btnSize - margin);
         btnDown2.setPosition((screenWidth - btnSize) / 2, margin); // Centro abajo
         btnLeft2.setPosition(margin, (screenHeight - btnSize) / 2); // Izquierda centro

@@ -26,7 +26,7 @@ public class PantallaArriba extends Screens {
     public PantallaArriba(Main game) {
         super(game);
         this.game = game;  // Guardamos la instancia de Main para acceder al temporizador
-        hideButtons2(true, btnCenter,btnUp,btnLeft,btnRight,btnUp2,btnLeft2,btnRight2);
+        hideButtons2(true, btnCenter,btnUp,btnLeft,btnRight,btnUp2,btnLeft2,btnRight2,btnDown);
         font = new BitmapFont();
         layout = new GlyphLayout();
         layout.setText(font, "ARRIBA");
