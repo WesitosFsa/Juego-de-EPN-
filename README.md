@@ -11,6 +11,9 @@ Un juego de terror inspirado en la saga de juegos indie FIVE NIGTHS AT FREDDYS d
 
 En *Cinco Noches en la Poli*, tomas el papel de un estudiante que quedó atrapado dentro de la EPN tras una larga jornada de estudio. Sin embargo, lo que parecía una simple noche de desvelo se convierte en una lucha por la supervivencia cuando descubres que no estás solo. Criaturas misteriosas, leyendas urbanas de la Politécnica y los inquietantes "poliperros" acechan en cada esquina. ¿Podrás sobrevivir cinco noches y descubrir la verdad?
 
+![poliFNAF](https://github.com/user-attachments/assets/66acab9c-33a1-4293-bb1c-b17d4d03982c)
+
+
 ---
 
 ## Plataformas
